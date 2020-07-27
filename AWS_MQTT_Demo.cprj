@@ -50,8 +50,8 @@
     <package name="ARM_Compiler" vendor="Keil"/>
     <package name="MIMXRT1064-EVK_BSP" vendor="Keil"/>
     <package name="iMXRT1064_MWP" vendor="Keil"/>
-    <package name="EVK-MIMXRT1064_BSP" vendor="NXP" version=":12.1.0"/>
-    <package name="MIMXRT1064_DFP" vendor="NXP" version=":12.1.0"/>
+    <package name="EVK-MIMXRT1064_BSP" vendor="NXP" version="12.1.0:12.1.0"/>
+    <package name="MIMXRT1064_DFP" vendor="NXP" version="12.1.0:12.1.0"/>
     <package name="CMSIS" vendor="ARM"/>
     <package name="CMSIS-Driver" vendor="ARM"/>
     <package name="CMSIS" vendor="ARM"/>
