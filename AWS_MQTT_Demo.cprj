@@ -1,176 +1,194 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <cprj schemaVersion="0.0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="CPRJ.xsd">
-  <created timestamp="2020-07-17T17:10:09" tool="cbuildgen 0.9.0"/>
+  <created timestamp="2020-09-30T17:09:24" tool="cbuildgen 0.9.1-precommit+799"/>
 
   <info isLayer="false">
-    <name>AWS MQTT Demo</name>
-    <description>This demo application connects to AWS IoT through MQTT, subscribes to topics and publishes messages.</description>
-    <category>Board, Cloud, IoT, Module, RTOS, Socket, WiFi</category>
-    <keywords>AWS, Board, ESP8266, FreeRTOS, MIMXRT1064-EVK, MQTT, Module, RTOS, Socket, WiFi</keywords>
+    <description>AWS MQTT Demo</description>
+    <category>AWS, Arduino, Board, Cloud, Example, IoT, MQTT, Module, RTOS, Socket, WiFi</category>
     <license>Apache 2.0, BSD 3-Clause, MIT</license>
   </info>
 
   <layers>
-    <layer hasTarget="0" name="App">
-      <description>Application layer (AWS MQTT Demo)</description>
-      <category>Cloud, IoT</category>
-      <keywords>AWS, MQTT</keywords>
+    <layer name="App">
+      <description>Demonstrates the subscribe-publish workflow of MQTT</description>
+      <doc>https://docs.aws.amazon.com/freertos/latest/lib-ref/c-sdk/mqtt/mqtt_demo.html</doc>
+      <category>Cloud, IoT, MQTT, AWS, Example</category>
       <license>MIT</license>
+      <interfaces>
+        <consumes id="IoT_Socket"/>
+        <consumes id="RTOS2"/>
+        <consumes id="STDOUT"/>
+        <consumes id="Heap" value="65536"/>
+      </interfaces>
     </layer>
     <layer hasTarget="1" name="Board">
-      <description>Board layer for MIMXRT1064-EVK</description>
+      <description>Board setup with interfaces</description>
       <category>Board</category>
-      <keywords>Board, MIMXRT1064-EVK</keywords>
       <license>BSD 3-Clause, Apache 2.0</license>
+      <interfaces>
+        <consumes id="RTOS2"/>
+        <provides id="C_ETH" value="0"/>
+        <provides id="C_MCI" value="0"/>
+        <provides id="C_UART" value="3"/>
+        <provides id="C_VIO"/>
+      </interfaces>
     </layer>
-    <layer hasTarget="0" name="Module">
-      <description>Module layer for ESP8266 WiFi Shield (ARDUINO - USART)</description>
-      <category>Module, WiFi</category>
-      <keywords>Module, WiFi, ESP8266</keywords>
+    <layer name="Module">
+      <description>Arduino module with ESP8266 WiFi chip</description>
+      <doc>https://www2.keil.com/iot/shields/wrl13287</doc>
+      <category>Module, Arduino, WiFi</category>
       <license>Apache 2.0</license>
+      <interfaces>
+        <consumes id="A_UART" value="*"/>
+        <consumes id="RTOS2"/>
+        <provides id="C_WiFi" value="0"/>
+      </interfaces>
     </layer>
-    <layer hasTarget="0" name="RTOS">
-      <description>RTOS layer (FreeRTOS)</description>
+    <layer name="RTOS">
+      <description>FreeRTOS open-source real-time operating system with CMSIS-RTOS v2 API</description>
+      <doc>https://arm-software.github.io/CMSIS-FreeRTOS/General/html/index.html</doc>
       <category>RTOS</category>
-      <keywords>RTOS, FreeRTOS</keywords>
       <license>Apache 2.0</license>
+      <interfaces>
+        <provides id="RTOS2"/>
+      </interfaces>
     </layer>
-    <layer hasTarget="0" name="Socket">
-      <description>Socket layer (WiFi)</description>
+    <layer name="Socket">
+      <description>IoT Socket interface connecting to CMSIS-Driver WiFi</description>
+      <doc>https://mdk-packs.github.io/IoT_Socket/html/index.html</doc>
       <category>Socket</category>
-      <keywords>Socket, WiFi</keywords>
       <license>Apache 2.0</license>
+      <interfaces>
+        <consumes id="C_WiFi" value="0"/>
+        <provides id="IoT_Socket"/>
+      </interfaces>
     </layer>
   </layers>
 
   <packages>
-    <package name="mbedTLS" vendor="ARM"/>
-    <package name="AWS_IoT_Device" vendor="MDK-Packs"/>
-    <package name="CMSIS" vendor="ARM"/>
-    <package name="CMSIS-Driver" vendor="ARM"/>
-    <package name="ARM_Compiler" vendor="Keil"/>
-    <package name="MIMXRT1064-EVK_BSP" vendor="Keil"/>
-    <package name="iMXRT1064_MWP" vendor="Keil"/>
-    <package name="EVK-MIMXRT1064_BSP" vendor="NXP" version="12.1.0:12.1.0"/>
-    <package name="MIMXRT1064_DFP" vendor="NXP" version="12.1.0:12.1.0"/>
-    <package name="CMSIS" vendor="ARM"/>
-    <package name="CMSIS-Driver" vendor="ARM"/>
-    <package name="CMSIS" vendor="ARM"/>
-    <package name="CMSIS-FreeRTOS" vendor="ARM"/>
-    <package name="IoT_Socket" vendor="MDK-Packs"/>
+    <package name="mbedTLS" vendor="ARM" version="1.6.1:1.6.1"/>
+    <package name="AWS_IoT_Device" vendor="MDK-Packs" version="2.0.0-beta:2.0.0-beta"/>
+    <package name="CMSIS-Driver" vendor="ARM" version="2.6.1:2.6.1"/>
+    <package name="CMSIS" vendor="ARM" version="5.7.0:5.7.0"/>
+    <package name="ARM_Compiler" vendor="Keil" version="1.6.3:1.6.3"/>
+    <package name="MIMXRT1064-EVK_BSP" vendor="Keil" version="1.1.0:1.1.0"/>
+    <package name="iMXRT1064_MWP" vendor="Keil" version="1.3.0:1.3.0"/>
+    <package name="EVK-MIMXRT1064_BSP" vendor="NXP" version="12.2.0:12.2.0"/>
+    <package name="MIMXRT1064_DFP" vendor="NXP" version="12.2.0:12.2.0"/>
+    <package name="CMSIS-FreeRTOS" vendor="ARM" version="10.3.1:10.3.1"/>
+    <package name="IoT_Socket" vendor="MDK-Packs" version="1.2.1:1.2.1"/>
   </packages>
 
   <compilers>
-    <compiler name="AC6" version="6.0.0:6.99.99"/>
+    <compiler name="AC6" version="6.14.0:6.14.0"/>
   </compilers>
 
-  <target Bname="EVK-MIMXRT1064" Bvendor="NXP" Ddsp="NO_DSP" Dendian="Little-endian" Dfpu="DP_FPU" Dmve="NO_MVE" Dname="MIMXRT1064DVL6A" Dsecure="Non-secure" Dtz="NO_TZ" Dvendor="NXP:11">
-    <output list="./Listings/" name="image" obj="./Objects/" type="exe"/>
+  <target Bname="EVK-MIMXRT1064_MDK" Bvendor="NXP" Bversion="Rev.A" Ddsp="NO_DSP" Dendian="Little-endian" Dfpu="DP_FPU" Dmve="NO_MVE" Dname="MIMXRT1064DVL6A" Dsecure="Non-secure" Dtz="NO_TZ" Dvendor="NXP:11">
+    <output intdir="./Objects/" name="image" outdir="./Objects/" type="exe"/>
     <ldflags add="--callgraph --diag_suppress 6314,6329 --entry=Reset_Handler --info sizes --info summarysizes --info totals --info unused --info veneers --load_addr_map_info --map --predefine=&quot;-DXIP_BOOT_HEADER_ENABLE=1&quot; --strict --summary_stderr --symbols --xref" compiler="AC6" file="./RTE/Device/MIMXRT1064DVL6A/MIMXRT1064xxxxx_flexspi_nor.scf"/>
     <cflags add="-DSKIP_SYSCLK_INIT -DXIP_BOOT_HEADER_DCD_ENABLE=&quot;1&quot; -DXIP_BOOT_HEADER_ENABLE=&quot;1&quot; -DXIP_EXTERNAL_FLASH=&quot;1&quot; -Oz -Wno-documentation -Wno-documentation-unknown-command -Wno-license-management -Wno-missing-noreturn -Wno-missing-prototypes -Wno-missing-variable-declarations -Wno-nonportable-include-path -Wno-packed -Wno-parentheses-equality  -Wno-reserved-id-macro -Wno-sign-conversion -Wno-unused-macros -ffunction-sections -fno-rtti -fshort-enums -fshort-wchar -funsigned-char -gdwarf-3 -std=c99 -xc" compiler="AC6"/>
     <asflags add="-gdwarf-3 -masm=auto" compiler="AC6"/>
   </target>
 
   <components>
-    <component Cclass="Security" Cgroup="mbed TLS" Cvendor="ARM" layer="App">
-      <file attr="config" category="header" name="configs/mbedTLS_config.h" version="2.17.0"/>
-    </component>
-    <component Cclass="IoT Client" Cgroup="AWS" Cvendor="MDK-Packs" layer="App">
+    <component Cclass="IoT Client" Cgroup="AWS" Cvendor="MDK-Packs" Cversion="4.0.0" layer="App">
       <file attr="config" category="header" name="config/iot_config.h" version="1.0.0"/>
     </component>
-    <component Cclass="IoT Utility" Cgroup="AWS" Csub="Common" Cvendor="MDK-Packs" layer="App"/>
-    <component Cclass="IoT Utility" Cgroup="AWS" Csub="MQTT" Cvendor="MDK-Packs" layer="App">
+    <component Cclass="IoT Utility" Cgroup="AWS" Csub="Common" Cvendor="MDK-Packs" Cversion="1.1.0" layer="App"/>
+    <component Cclass="IoT Utility" Cgroup="AWS" Csub="MQTT" Cvendor="MDK-Packs" Cversion="2.1.0" layer="App">
       <cflags add="-DIOT_MQTT_RESPONSE_WAIT_MS=&quot;10000&quot;" compiler="AC6"/>
     </component>
-    <component Cclass="IoT Utility" Cgroup="AWS" Csub="Platform" Cvariant="CMSIS-RTOS2 mbedTLS" Cvendor="MDK-Packs" layer="App">
+    <component Cclass="IoT Utility" Cgroup="AWS" Csub="Platform" Cvariant="CMSIS-RTOS2 mbedTLS" Cvendor="MDK-Packs" Cversion="1.0.0" layer="App">
       <cflags add="-DIOT_NETWORK_MBEDTLS_POLL_TIMEOUT_MS=&quot;10000&quot;" compiler="AC6"/>
       <file attr="config" category="header" name="third_party/mbedtls/mbedtls/config/iot_config_mbedtls.h" version="2.17.0"/>
     </component>
-    <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" layer="Board"/>
-    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" layer="Board">
-      <file attr="config" category="header" name="Config/EventRecorderConf.h" version="1.1.0"/>
+    <component Cclass="Security" Cgroup="mbed TLS" Cvendor="ARM" Cversion="2.17.0" layer="App">
+      <file attr="config" category="header" name="configs/mbedTLS_config.h" version="2.17.0"/>
     </component>
-    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cvendor="Keil" layer="Board"/>
-    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cvendor="Keil" layer="Board"/>
-    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cvendor="Keil" layer="Board"/>
-    <component Cclass="CMSIS Driver" Cgroup="Ethernet MAC" Cvendor="Keil" layer="Board"/>
-    <component Cclass="CMSIS Driver" Cgroup="Ethernet PHY" Csub="KSZ8081RNA" Cvendor="Keil" layer="Board">
-      <cflags add="-DETH_PHY_REF_CLK_50M=&quot;1&quot;" compiler="AC6"/>
-    </component>
-    <component Cclass="CMSIS Driver" Cgroup="MCI" Cvendor="Keil" layer="Board"/>
-    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="MIMXRT1064-EVK" Cvendor="Keil" layer="Board"/>
-    <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="evkmimxrt1064" Cvendor="NXP" layer="Board">
+    <component Cclass="Board Support" Cgroup="SDK Project Template" Csub="project_template" Cvariant="evkmimxrt1064" Cvendor="NXP" Cversion="1.0.0" layer="Board">
       <file attr="config" category="sourceC" name="project_template/board.c" version="1.0.0"/>
       <file attr="config" category="header" name="project_template/board.h" version="1.0.0"/>
       <file attr="config" category="sourceC" name="project_template/clock_config.c" version="1.0.0"/>
       <file attr="config" category="header" name="project_template/clock_config.h" version="1.0.0"/>
+      <file attr="config" category="sourceC" name="project_template/dcd.c" version="1.0.0"/>
+      <file attr="config" category="header" name="project_template/dcd.h" version="1.0.0"/>
       <file attr="config" category="sourceC" name="project_template/peripherals.c" version="1.0.0"/>
       <file attr="config" category="header" name="project_template/peripherals.h" version="1.0.0"/>
       <file attr="config" category="sourceC" name="project_template/pin_mux.c" version="1.0.0"/>
       <file attr="config" category="header" name="project_template/pin_mux.h" version="1.0.0"/>
     </component>
-    <component Cclass="CMSIS Driver" Cgroup="USART" Csub="lpuart_cmsis_edma" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="CMSIS" Csub="MIMXRT1064_header" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="clock" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="common" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="dmamux" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="edma" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="enet" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="gpio" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="iomuxc" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lists" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart_adapter" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart_edma" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="sdhc" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="xip_board" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="xip_board_dcd" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Drivers" Csub="xip_device" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Project Template" Csub="RTE_Device" Cvendor="NXP" layer="Board">
+    <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.4.0" layer="Board"/>
+    <component Cclass="CMSIS Driver" Cgroup="Ethernet MAC" Cvendor="Keil" Cversion="1.1.0" layer="Board"/>
+    <component Cclass="CMSIS Driver" Cgroup="Ethernet PHY" Csub="KSZ8081RNA" Cvendor="Keil" Cversion="6.3.0" layer="Board">
+      <cflags add="-DETH_PHY_REF_CLK_50M=&quot;1&quot;" compiler="AC6"/>
+    </component>
+    <component Cclass="CMSIS Driver" Cgroup="MCI" Cvendor="Keil" Cversion="1.1.0" layer="Board"/>
+    <component Cclass="CMSIS Driver" Cgroup="USART" Csub="lpuart_cmsis_edma" Cvendor="NXP" Cversion="2.0.1" layer="Board"/>
+    <component Cclass="CMSIS Driver" Cgroup="VIO" Csub="Board" Cvariant="MIMXRT1064-EVK" Cvendor="Keil" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="CMSIS" Csub="MIMXRT1064_header" Cvendor="NXP" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="clock" Cvendor="NXP" Cversion="2.3.2" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="common" Cvendor="NXP" Cversion="2.2.4" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="dmamux" Cvendor="NXP" Cversion="2.0.4" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="edma" Cvendor="NXP" Cversion="2.3.2" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="enet" Cvendor="NXP" Cversion="2.3.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="gpio" Cvendor="NXP" Cversion="2.0.3" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="iomuxc" Cvendor="NXP" Cversion="2.0.1" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lists" Cvendor="NXP" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart" Cvendor="NXP" Cversion="2.3.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart_adapter" Cvendor="NXP" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="lpuart_edma" Cvendor="NXP" Cversion="2.3.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="sdhc" Cvendor="NXP" Cversion="2.5.1" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="xip_board" Cvendor="NXP" Cversion="2.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Drivers" Csub="xip_device" Cvendor="NXP" Cversion="2.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Project Template" Csub="RTE_Device" Cvendor="NXP" Cversion="1.0.0" layer="Board">
       <file attr="config" category="header" name="template/RTE_Device.h" version="1.0.0"/>
     </component>
-    <component Cclass="Device" Cgroup="SDK Utilities" Csub="debug_console" Cvendor="NXP" layer="Board">
+    <component Cclass="Device" Cgroup="SDK Utilities" Csub="debug_console" Cvendor="NXP" Cversion="1.0.0" layer="Board">
       <cflags add="-DSDK_DEBUGCONSOLE=&quot;1&quot; -D__MCUXPRESSO" compiler="AC6"/>
     </component>
-    <component Cclass="Device" Cgroup="SDK Utilities" Csub="serial_manager" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="SDK Utilities" Csub="serial_manager_uart" Cvendor="NXP" layer="Board"/>
-    <component Cclass="Device" Cgroup="Startup" Csub="MIMXRT1064_startup" Cvendor="NXP" layer="Board">
-      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_flexspi_nor.scf" version="1.0.0"/>
-      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_flexspi_nor_sdram.scf" version="1.0.0"/>
-      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_ram.scf" version="1.0.0"/>
-      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_sdram.scf" version="1.0.0"/>
-      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_sdram_txt.scf" version="1.0.0"/>
-      <file attr="config" category="sourceAsm" name="arm/startup_MIMXRT1064.s" version="1.0.0"/>
-      <file attr="config" category="sourceC" name="system_MIMXRT1064.c" version="1.0.0"/>
-      <file attr="config" category="header" name="system_MIMXRT1064.h" version="1.0.0"/>
+    <component Cclass="Device" Cgroup="SDK Utilities" Csub="serial_manager" Cvendor="NXP" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="SDK Utilities" Csub="serial_manager_uart" Cvendor="NXP" Cversion="1.0.0" layer="Board"/>
+    <component Cclass="Device" Cgroup="Startup" Csub="MIMXRT1064_startup" Cvendor="NXP" Cversion="1.1.0" layer="Board">
+      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_flexspi_nor.scf" version="1.1.0"/>
+      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_flexspi_nor_sdram.scf" version="1.1.0"/>
+      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_ram.scf" version="1.1.0"/>
+      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_sdram.scf" version="1.1.0"/>
+      <file attr="config" category="linkerScript" name="arm/MIMXRT1064xxxxx_sdram_txt.scf" version="1.1.0"/>
     </component>
-    <component Cclass="CMSIS Driver" Cgroup="WiFi" Csub="ESP8266" Cvariant="UART" Cvendor="Keil" layer="Module">
+    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="Event Recorder" Cvariant="DAP" Cvendor="Keil" Cversion="1.4.0" layer="Board">
+      <file attr="config" category="header" name="Config/EventRecorderConf.h" version="1.1.0"/>
+    </component>
+    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDERR" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" layer="Board"/>
+    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDIN" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" layer="Board"/>
+    <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="User" Cvendor="Keil" Cversion="1.2.0" layer="Board"/>
+    <component Cclass="CMSIS Driver" Cgroup="WiFi" Csub="ESP8266" Cvariant="UART" Cvendor="Keil" Cversion="1.4.0" layer="Module">
       <file attr="config" category="header" name="WiFi/ESP8266/Config/WiFi_ESP8266_Config.h" version="1.0.0"/>
     </component>
-    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Config" Cvariant="CMSIS RTOS2" Cvendor="ARM" layer="RTOS">
+    <component Cclass="CMSIS" Cgroup="RTOS2" Csub="FreeRTOS" Cvariant="Cortex-M" Cvendor="ARM" Cversion="10.3.1" layer="RTOS"/>
+    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Config" Cvariant="CMSIS RTOS2" Cvendor="ARM" Cversion="10.3.1" layer="RTOS">
       <file attr="config" category="header" name="CMSIS/RTOS2/FreeRTOS/Config/ARMCM/FreeRTOSConfig.h" version="10.2.0"/>
     </component>
-    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Core" Cvariant="Cortex-M" Cvendor="ARM" layer="RTOS"/>
-    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Event Groups" Cvendor="ARM" layer="RTOS"/>
-    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Heap" Cvariant="Heap_4" Cvendor="ARM" layer="RTOS"/>
-    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Timers" Cvendor="ARM" layer="RTOS"/>
-    <component Cclass="CMSIS" Cgroup="RTOS2" Csub="FreeRTOS" Cvariant="Cortex-M" Cvendor="ARM" layer="RTOS"/>
-    <component Cclass="IoT Utility" Cgroup="Socket" Csub="WiFi" Cvendor="MDK-Packs" layer="Socket"/>
+    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Core" Cvariant="Cortex-M" Cvendor="ARM" Cversion="10.3.1" layer="RTOS"/>
+    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Event Groups" Cvendor="ARM" Cversion="10.3.1" layer="RTOS"/>
+    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Heap" Cvariant="Heap_4" Cvendor="ARM" Cversion="10.3.1" layer="RTOS"/>
+    <component Cbundle="FreeRTOS" Cclass="RTOS" Cgroup="Timers" Cvendor="ARM" Cversion="10.3.1" layer="RTOS"/>
+    <component Cclass="IoT Utility" Cgroup="Socket" Csub="WiFi" Cvendor="MDK-Packs" Cversion="1.0.0" layer="Socket"/>
   </components>
 
   <files>
-    <group name="Source Code">
+    <group name="App">
       <file category="sourceC" layer="App" name="./app_main.c"/>
       <file category="sourceC" layer="App" name="./iot_demo.c">
         <cflags add="-DRunDemo=&quot;RunMqttDemo&quot;" compiler="AC6"/>
       </file>
       <file category="sourceC" layer="App" name="./iot_demo_mqtt.c"/>
       <file category="header" layer="App" name="./iot_demo_logging.h"/>
+      <file category="sourceC" layer="Socket" name="./socket_startup.c"/>
     </group>
     <group name="Documentation">
       <file category="doc" layer="App" name="./README.md"/>
     </group>
-    <group name="Source Code">
+    <group name="Board">
       <file category="sourceC" layer="Board" name="./main.c"/>
       <file category="header" layer="Board" name="./main.h"/>
     </group>
@@ -179,9 +197,6 @@
     </group>
     <group name="MCUXpresso">
       <file category="other" layer="Board" name="./MIMXRT1064-EVK.mex"/>
-    </group>
-    <group name="Source Code">
-      <file category="sourceC" layer="Socket" name="./socket_startup.c"/>
     </group>
   </files>
 </cprj>
