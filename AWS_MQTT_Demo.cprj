@@ -3,7 +3,7 @@
   <created timestamp="2020-09-30T17:09:24" tool="cbuildgen 0.9.1-precommit+799"/>
 
   <info isLayer="false">
-    <title>AWS MQTT Demo</title>
+    <name>AWS MQTT Demo</name>
     <description>This demo application connects to AWS IoT through MQTT, subscribes to topics and publishes messages.</description>
     <category>AWS, Arduino, Board, Cloud, Example, IoT, MQTT, Module, RTOS, Socket, WiFi</category>
     <license>Apache 2.0, BSD 3-Clause, MIT</license>
